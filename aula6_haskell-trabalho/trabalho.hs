@@ -146,7 +146,8 @@ cbigStep (Unless b c1 c2, s)
     | bbigStep(b, s) == False = cbigStep( c1, s )
     | otherwise = cbigStep( c2, s )
 
-cbigStep (Swap (Var x) (Var y), s) = ( Skip, ( mudaVar ( mudaVar s x (procuraVar s y) ) y (procuraVar s x) ) )
+cbigStep (Swap (Var x) (Var y), s) = ( Skip,
+    ( mudaVar ( mudaVar s x (procuraVar s y) ) y (procuraVar s x) ) )
     
 cbigStep (DAttrib (Var x) (Var y) e1 e2, s) =
  (Skip, mudaVar ( mudaVar s x (ebigStep (e1, s) ) ) y (ebigStep (e2, s)) )            
@@ -201,18 +202,6 @@ fibonnaci = Seq ( DAttrib (Var "x") (Var "y") (Num 0) (Num 1) )
 exSigma6 :: Memoria
 exSigma6 = [ ("a", 923), ("b", 283182), ("c", 92) ]
 
-minimo_tres :: C
-minimo_tres = Seq    ( Seq  ( Unless (Leq (Var "a") (Var "b")) 
-                     ( Swap (Var "b") (Var "a") )
-                     ( Skip ) )
-
-                     ( Unless (Leq (Var "a") (Var "c"))
-                     ( Swap (Var "a") (Var "c") )
-                     ( Skip ) ) )
-                    
-                     ( Unless (Leq (Var "b") (Var "c" )) 
-                     ( Swap (Var "b") (Var "c") )
-                     ( Skip ) ) 
 
 --- O progExp1 é um programa que usa apenas a semântica das expressões aritméticas. Esse
 --- programa já é possível rodar com a implementação inicial  fornecida:
